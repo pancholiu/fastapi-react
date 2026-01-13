@@ -7,6 +7,18 @@ origins = [
     "http://localhost:5173",
     "localhost:5173"
 ]
+
+todos = [
+    {
+        "id": "1",
+        "item": "Read a book."
+    },
+    {
+        "id": "2",
+        "item": "Cycle ayound town"
+    }
+]
+
 # Docs: https://fastapi.tiangolo.com/tutorial/cors/
 app.add_middleware(
     CORSMiddleware,
@@ -20,3 +32,8 @@ app.add_middleware(
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Welcome to your todo list."}
+
+
+@app.get("/todo", tags=["todos"])
+async def get_todos() -> dict:
+    return {"data": todos}
