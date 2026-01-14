@@ -16,6 +16,10 @@ todos = [
     {
         "id": "2",
         "item": "Cycle ayound town"
+    },
+    {
+        "id": "3",
+        "item": "make millions"
     }
 ]
 
@@ -37,3 +41,17 @@ async def read_root() -> dict:
 @app.get("/todo", tags=["todos"])
 async def get_todos() -> dict:
     return {"data": todos}
+
+
+@app.post("/todo", tags=["todos"])
+async def add_todo(new_todo: dict) -> dict:
+
+    if any(todo["id"] == new_todo["id"] for todo in todos):
+        return {
+            "message": {"Todo already exists"}
+        }
+
+    todos.append(new_todo)
+    return {
+        "data": {"Todo added."}
+    }

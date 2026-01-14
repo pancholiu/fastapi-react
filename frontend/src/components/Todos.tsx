@@ -27,6 +27,11 @@ const TodosContext = createContext({
   fetchTodos: () => {},
 });
 
+function AddTodo() {
+  const [item, setItem] = useState("");
+  const { todos, fetchTodos } = useContext(TodosContext);
+}
+
 export default function Todos() {
   const [todos, setTodos] = useState([]);
   const fetchTodos = async () => {
