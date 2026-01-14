@@ -4,4 +4,4 @@ https://testdriven.io/blog/fastapi-react/
 
 ### 2. Progress
 
-`Todos.tsx should now look like:`
+`Start by adding the shell for adding a new todo to frontend/src/components/Todos.tsx:`
