@@ -28,6 +28,11 @@ interface UpdateTodoProps {
   fetchTodos: () => void;
 }
 
+interface DeleteTodoProps {
+  id: string;
+  fetchTodos: () => void;
+}
+
 interface TodoHelperProps {
   item: string;
   id: string;
@@ -137,6 +142,23 @@ const UpdateTodo = ({ item, id, fetchTodos }: UpdateTodoProps) => {
   );
 };
 
+const DeleteTodo = ({ id, fetchTodos }: DeleteTodoProps) => {
+  const deleteTodo = async () => {
+    await fetch(`http://localhost:8000/todo/${id}`, {
+      method: "DELETE",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ id: id }),
+    });
+    await fetchTodos();
+  };
+
+  return (
+    <Button h="1.5rem" size="sm" marginLeft={2} onClick={deleteTodo}>
+      Delete Todo
+    </Button>
+  );
+};
+
 function TodoHelper({ item, id, fetchTodos }: TodoHelperProps) {
   return (
     <Box p={1} shadow="sm">
@@ -145,6 +167,7 @@ function TodoHelper({ item, id, fetchTodos }: TodoHelperProps) {
           {item}
           <Flex align="end">
             <UpdateTodo item={item} id={id} fetchTodos={fetchTodos} />
+            <DeleteTodo id={id} fetchTodos={fetchTodos} />
           </Flex>
         </Text>
       </Flex>
